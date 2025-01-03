@@ -1,14 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     experimental: {
-        serverActions: true,
+        serverActions: {},
     },
     env: {
-        DB_HOST: process.env.DB_HOST,
-        DB_USER: process.env.DB_USER,
-        DB_PASSWORD: process.env.DB_PASSWORD,
-        DB_NAME: process.env.DB_NAME,
+        DB_HOST: process.env.DB_HOST || 'localhost',
+        DB_USER: process.env.DB_USER || 'root',
+        DB_PASSWORD: process.env.DB_PASSWORD || 'Miguelangelomy1',
+        DB_NAME: process.env.DB_NAME || 'BD_COLEGIO1',
     },
-}
+};
 
-module.exports = nextConfig 
+module.exports = nextConfig;
