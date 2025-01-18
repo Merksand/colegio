@@ -33,7 +33,6 @@ export default async function handler(req, res) {
         res.status(201).json(result);
         break;
       }
-      // PUT and DELETE cases can be added here
       default:
         res.setHeader('Allow', ['GET', 'POST']);
         res.status(405).end(`Method ${method} Not Allowed`);

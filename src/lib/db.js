@@ -5,12 +5,8 @@ const pool = mysql.createPool({
     user: process.env.DB_USER || 'root',
     password: process.env.DB_PASSWORD || 'Miguelangelomy1',
     database: process.env.DB_NAME || 'BD_COLEGIO1',
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
 });
 
-// Función para probar la conexión
 async function testConnection() {
     try {
         const connection = await pool.getConnection();
@@ -25,7 +21,6 @@ async function testConnection() {
 
 export async function query(sql, values) {
     try {
-        // Probar conexión antes de ejecutar la consulta
         await testConnection();
         
         const [results] = await pool.execute(sql, values || []);

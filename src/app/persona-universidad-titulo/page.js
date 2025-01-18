@@ -75,24 +75,24 @@ export default function RelacionesPage() {
         }
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const formData = new FormData(e.target);
-        const data = Object.fromEntries(formData.entries());
-
+    const handleSubmit = async (formData) => {
         try {
             if (editingRelacion) {
-                await axios.put(`/api/persona-universidad-titulo/${editingRelacion.Id_PUT}`, data);
+                await axios.put(`/api/persona-universidad-titulo/${editingRelacion.Id_PUT}`, formData);
                 setEditingRelacion(null);
                 showToast("Relación actualizada exitosamente");
             } else {
-                await axios.post("/api/persona-universidad-titulo", data);
+                await axios.post("/api/persona-universidad-titulo", formData);
                 setIsAdding(false);
                 showToast("Relación agregada exitosamente");
             }
             fetchRelaciones();
-        } catch (err) {
-            showToast("Error en la operación", "error");
+        } catch (error) {
+            console.error("Error:", error);
+            showToast(
+                error.response?.data?.error || "Error al procesar la solicitud",
+                "error"
+            );
         }
     };
 
