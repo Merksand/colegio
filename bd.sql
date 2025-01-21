@@ -16,7 +16,7 @@ CREATE TABLE TbPersona (
   LDN_Per VARCHAR(50),
   Estado_Per VARCHAR(10)
 );
-
+f
 CREATE TABLE TbUniversidad (
   Id_Universidad INT PRIMARY KEY AUTO_INCREMENT,
   Nombre_Uni VARCHAR(50),
@@ -111,23 +111,25 @@ CREATE TABLE tbColegioDefensaPersonaSIB (
 CREATE TABLE tbUsuario (
   Id_Usuario INT PRIMARY KEY AUTO_INCREMENT,
   Id_Persona_Usu INT,
-  F_Creacion_Usu DATETIME,
+  F_Creacion_Usu DATETIME DEFAULT current_timestamp, -- Modificacion
   login_Usu VARCHAR(50),
-  Estado_Usu VARCHAR(10),
+  Estado_Usu VARCHAR(10), --AC o BA (ACTIVO O BAJA)
   FOREIGN KEY (Id_Persona_Usu) REFERENCES TbPersona(Id_Persona)
 );
 
 CREATE TABLE tbPassword (
   Id_Password INT PRIMARY KEY AUTO_INCREMENT,
-  Tipo_Pas VARCHAR(10),
-  Fecha_Pas DATETIME,
-  Password_Pas VARCHAR(20),
+  Tipo_Pas VARCHAR(10), -- GE, MO O RE (GENERADA, MODIFICADA, RESETEADA)
+  Fecha_Pas DATETIME DEFAULT current_timestamp,
+  Password_Pas VARCHAR(30), -- Aleatoria y hasheada
   Estado_Pas VARCHAR(10)
 );
 
 CREATE TABLE tbUsuarioPassword (
+  Id_UsuarioPassword INT PRIMARY KEY AUTO_INCREMENT,
   Id_Usuario_UP INT,
   Id_Password_UP INT,
+  Estado_UP VARCHAR(10),
   FOREIGN KEY (Id_Usuario_UP) REFERENCES tbUsuario(Id_Usuario),
   FOREIGN KEY (Id_Password_UP) REFERENCES tbPassword(Id_Password)
 );
