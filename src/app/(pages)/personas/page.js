@@ -2,11 +2,12 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Sidebar from "../components/Sidebar";
-import PersonaForm from "../components/PersonaForm";
-import '../globals.css'
-import ConfirmDialog from "../components/ConfirmDialog";
-import Toast from "../components/Toast";
+import Sidebar from "@/components/Sidebar";
+import PersonaForm from "@/components/PersonaForm";
+import '@/app/globals.css'
+import ConfirmDialog from "@/components/ConfirmDialog";
+import Toast from "@/components/Toast";
+
 
 export default function Personas() {
     const [personas, setPersonas] = useState([]);

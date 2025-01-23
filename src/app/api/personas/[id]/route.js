@@ -1,11 +1,11 @@
-import { query } from "@/lib/db";
 import { NextResponse } from "next/server";
+import { pool } from "@/lib/db";
 
 export async function PUT(request, { params }) {
     try {
-        const { id } = params;
+        const { id } = await params;
         const body = await request.json();
-        
+
         console.log("PUT - ID recibido:", id);
         console.log("PUT - Datos recibidos:", body);
 
@@ -57,44 +57,34 @@ export async function PUT(request, { params }) {
             );
         }
 
-        return NextResponse.json({ 
+        return NextResponse.json({
             message: "Actualización exitosa",
             result: result
         });
     } catch (error) {
         console.error("Error completo:", error);
         return NextResponse.json(
-            { 
-                error: "Error al actualizar persona", 
+            {
+                error: "Error al actualizar persona",
                 details: error.message,
-                sqlMessage: error.sqlMessage 
+                sqlMessage: error.sqlMessage
             },
             { status: 500 }
         );
     }
 }
 
-export async function DELETE(request, { params }) {
+export async function GET(request, { params }) {
     try {
-        const { id } = params;
-        const result = await query(
-            'DELETE FROM TbPersona WHERE Id_Persona = ?',
-            [id]
-        );
+        const { id } = await params;
+        const [rows] = await pool.query('SELECT * FROM TbPersona WHERE CI_Per = ?', [id]);
 
-        if (result.affectedRows === 0) {
-            return NextResponse.json(
-                { error: "No se encontró la persona" },
-                { status: 404 }
-            );
+        if (rows.length === 0) {
+            return NextResponse.json({ error: 'Persona no encontrada' }, { status: 404 });
         }
 
-        return NextResponse.json({ message: "Eliminación exitosa" });
+        return NextResponse.json(rows[0]);
     } catch (error) {
-        console.error("Error al eliminar:", error);
-        return NextResponse.json(
-            { error: "Error al eliminar persona", details: error.message },
-            { status: 500 }
-        );
+        return NextResponse.json({ error: error.message }, { status: 500 });
     }
-} 
+}

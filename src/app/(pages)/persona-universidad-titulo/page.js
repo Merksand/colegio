@@ -2,40 +2,40 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Sidebar from "../components/Sidebar";
-import TituloForm from "../components/TituloForm";
-import "../globals.css";
-import ConfirmDialog from "../components/ConfirmDialog";
-import Toast from "../components/Toast";
+import Sidebar from "@/components/Sidebar";
+import RelacionForm from "@/components/RelacionForm";
+import "@/app/globals.css";
+import ConfirmDialog from "@/components/ConfirmDialog";
+import Toast from "@/components/Toast";
 
-export default function Titulos() {
-    const [titulos, setTitulos] = useState([]);
+export default function RelacionesPage() {
+    const [relaciones, setRelaciones] = useState([]);
     const [error, setError] = useState(null);
-    const [editingTitulo, setEditingTitulo] = useState(null);
+    const [editingRelacion, setEditingRelacion] = useState(null);
     const [isAdding, setIsAdding] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(true);
     const [deleteConfirm, setDeleteConfirm] = useState({
         isOpen: false,
-        tituloId: null,
-        tituloNombre: null,
+        relacionId: null,
+        personaNombre: null
     });
     const [toast, setToast] = useState({
         show: false,
         message: "",
-        type: "success",
+        type: "success"
     });
 
-    const fetchTitulos = async () => {
+    const fetchRelaciones = async () => {
         try {
-            const response = await axios.get("/api/titulos");
-            setTitulos(response.data);
+            const response = await axios.get("/api/persona-universidad-titulo");
+            setRelaciones(response.data);
         } catch (err) {
             setError("Error al obtener los datos: " + err.message);
         }
     };
 
     useEffect(() => {
-        fetchTitulos();
+        fetchRelaciones();
     }, []);
 
     const showToast = (message, type = "success") => {
@@ -43,8 +43,8 @@ export default function Titulos() {
         setTimeout(() => setToast({ show: false, message: "", type: "success" }), 3000);
     };
 
-    const handleEdit = (titulo) => {
-        setEditingTitulo(titulo);
+    const handleEdit = (relacion) => {
+        setEditingRelacion(relacion);
     };
 
     const handleAdd = () => {
@@ -52,47 +52,47 @@ export default function Titulos() {
     };
 
     const handleCancel = () => {
-        setEditingTitulo(null);
+        setEditingRelacion(null);
         setIsAdding(false);
     };
 
-    const handleDeleteClick = (titulo) => {
+    const handleDeleteClick = (relacion) => {
         setDeleteConfirm({
             isOpen: true,
-            tituloId: titulo.Id_Titulo,
-            tituloNombre: titulo.Descripcion_Tit,
+            relacionId: relacion.Id_PUT,
+            personaNombre: `${relacion.Nombre_Per} ${relacion.Paterno_Per}`
         });
     };
 
     const handleDelete = async () => {
         try {
-            await axios.delete(`/api/titulos/${deleteConfirm.tituloId}`);
-            setDeleteConfirm({ isOpen: false, tituloId: null, tituloNombre: null });
-            fetchTitulos();
-            showToast("Título eliminado exitosamente");
+            await axios.delete(`/api/persona-universidad-titulo/${deleteConfirm.relacionId}`);
+            setDeleteConfirm({ isOpen: false, relacionId: null, personaNombre: null });
+            fetchRelaciones();
+            showToast("Relación eliminada exitosamente");
         } catch (err) {
-            showToast("Error al eliminar el título", "error");
+            showToast("Error al eliminar la relación", "error");
         }
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const formData = new FormData(e.target);
-        const data = Object.fromEntries(formData.entries());
-
+    const handleSubmit = async (formData) => {
         try {
-            if (editingTitulo) {
-                await axios.put(`/api/titulos/${editingTitulo.Id_Titulo}`, data);
-                setEditingTitulo(null);
-                showToast("Título actualizado exitosamente");
+            if (editingRelacion) {
+                await axios.put(`/api/persona-universidad-titulo/${editingRelacion.Id_PUT}`, formData);
+                setEditingRelacion(null);
+                showToast("Relación actualizada exitosamente");
             } else {
-                await axios.post("/api/titulos", data);
+                await axios.post("/api/persona-universidad-titulo", formData);
                 setIsAdding(false);
-                showToast("Título agregado exitosamente");
+                showToast("Relación agregada exitosamente");
             }
-            fetchTitulos();
-        } catch (err) {
-            showToast("Error en la operación", "error");
+            fetchRelaciones();
+        } catch (error) {
+            console.error("Error:", error);
+            showToast(
+                error.response?.data?.error || "Error al procesar la solicitud",
+                "error"
+            );
         }
     };
 
@@ -102,42 +102,46 @@ export default function Titulos() {
             <main className={`flex-1 transition-all duration-300 ${sidebarOpen ? "ml-60" : "ml-16"}`}>
                 <div className="p-4">
                     <div className="overflow-x-auto bg-white rounded-lg shadow">
-                        <h1 className="text-2xl font-bold mb-4 p-4">Lista de Títulos</h1>
+                        <h1 className="text-2xl font-bold mb-4 p-4">Relaciones Persona-Universidad-Título</h1>
                         {error && <p className="text-red-500 px-4">{error}</p>}
                         <div className="w-full overflow-x-auto">
                             <table className="w-full text-sm text-left">
                                 <thead>
                                     <tr className="bg-gray-200">
-                                        <th className="px-4 py-2">Descripción</th>
-                                        <th className="px-4 py-2">Nivel</th>
+                                        <th className="px-4 py-2">Persona</th>
+                                        <th className="px-4 py-2">Universidad</th>
+                                        <th className="px-4 py-2">Título</th>
                                         <th className="px-4 py-2">Estado</th>
                                         <th className="px-4 py-2">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {titulos.map((titulo) => (
-                                        <tr key={titulo.Id_Titulo} className="border-b hover:bg-gray-50">
-                                            <td className="px-4 py-2">{titulo.Descripcion_Tit}</td>
-                                            <td className="px-4 py-2">{titulo.Nivel_Tit}</td>
+                                    {relaciones.map((relacion) => (
+                                        <tr key={relacion.Id_PUT} className="border-b hover:bg-gray-50">
+                                            <td className="px-4 py-2">
+                                                {`${relacion.Nombre_Per} ${relacion.Paterno_Per} ${relacion.Materno_Per}`}
+                                            </td>
+                                            <td className="px-4 py-2">{relacion.Nombre_Uni}</td>
+                                            <td className="px-4 py-2">{relacion.Descripcion_Tit}</td>
                                             <td className="px-4 py-2">
                                                 <span className={`px-2 py-1 rounded-full text-sm ${
-                                                    titulo.Estado_Tit === "Activo"
+                                                    relacion.Estado_Put === "Activo"
                                                         ? "bg-green-200 text-green-800"
                                                         : "bg-red-200 text-red-800"
                                                 }`}>
-                                                    {titulo.Estado_Tit}
+                                                    {relacion.Estado_Put}
                                                 </span>
                                             </td>
                                             <td className="px-4 py-2">
                                                 <div className="flex gap-2">
                                                     <button
-                                                        onClick={() => handleEdit(titulo)}
+                                                        onClick={() => handleEdit(relacion)}
                                                         className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
                                                     >
                                                         Editar
                                                     </button>
                                                     <button
-                                                        onClick={() => handleDeleteClick(titulo)}
+                                                        onClick={() => handleDeleteClick(relacion)}
                                                         className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
                                                     >
                                                         Eliminar
@@ -154,15 +158,15 @@ export default function Titulos() {
                                 onClick={handleAdd}
                                 className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
                             >
-                                Agregar Título
+                                Agregar Relación
                             </button>
                         </div>
                     </div>
                 </div>
 
-                {(editingTitulo || isAdding) && (
-                    <TituloForm
-                        titulo={editingTitulo}
+                {(editingRelacion || isAdding) && (
+                    <RelacionForm
+                        relacion={editingRelacion}
                         onSubmit={handleSubmit}
                         onCancel={handleCancel}
                     />
@@ -170,10 +174,10 @@ export default function Titulos() {
 
                 <ConfirmDialog
                     isOpen={deleteConfirm.isOpen}
-                    onClose={() => setDeleteConfirm({ isOpen: false, tituloId: null, tituloNombre: null })}
+                    onClose={() => setDeleteConfirm({ isOpen: false, relacionId: null, personaNombre: null })}
                     onConfirm={handleDelete}
                     title="Confirmar Eliminación"
-                    message={`¿Está seguro que desea eliminar el título "${deleteConfirm.tituloNombre}"?`}
+                    message={`¿Está seguro que desea eliminar la relación de ${deleteConfirm.personaNombre}?`}
                 />
 
                 {toast.show && (
