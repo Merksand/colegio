@@ -1,5 +1,7 @@
 import { redirect } from 'next/navigation';
 
 export default function Home() {
-    redirect('/crearCuenta');
+    // redirect('/crearCuenta');
+    redirect('/personas');
+    
 }

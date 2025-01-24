@@ -97,7 +97,7 @@ export default function Titulos() {
     };
 
     return (
-        <div className="flex min-h-screen bg-gray-100">
+        <div className="flex w-full bg-gray-100">
             <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
             <main className={`flex-1 transition-all duration-300 ${sidebarOpen ? "ml-60" : "ml-16"}`}>
                 <div className="p-4">

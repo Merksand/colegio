@@ -104,15 +104,15 @@ export default function Personas() {
     };
 
     return (
-        <div className="flex min-h-screen bg-gray-100">
+        <div className="flex w-full bg-red-700 p-3 box-border ">
             <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
             <main className={`flex-1 transition-all duration-300 ${sidebarOpen ? 'ml-60' : 'ml-16'}`}>
                 <div className="p-4">
                     <div className="overflow-x-auto bg-white rounded-lg shadow">
-                        <h1 className="text-2xl font-bold mb-4 p-4">Lista de Personas</h1>
+                        <h1 className="text-2xl font-bold mb-4 p-4">Lista de Personaszz</h1>
                         {error && <p className="text-red-500 px-4">{error}</p>}
                         <div className="w-full overflow-x-auto">
-                            <table className="w-full text-sm text-left">
+                            <table className="w-full text-sm text-left table-auto">
                                 <thead>
                                     <tr className="bg-gray-200">
                                         <th className="border border-gray-300 px-4 py-2">CI</th>

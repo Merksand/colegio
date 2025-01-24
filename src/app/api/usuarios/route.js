@@ -3,7 +3,6 @@ import { pool } from '@/lib/db';
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 
-
 // GET - Obtener todos los usuarios con información relacionada
 export async function GET(request) {
   try {
@@ -13,11 +12,11 @@ export async function GET(request) {
     let query = `
       SELECT 
         u.Id_Usuario,
-        u.Id_Persona_Usu,
-        p.CI_Per,
-        p.Nombre_Per,
-        p.Paterno_Per,
-        p.Materno_Per,
+        u.Id_Funcionario_Usu,
+        f.CI_Funcionario,
+        f.Nombre_Fun,
+        f.Paterno_Fun,
+        f.Materno_Fun,
         u.login_Usu,
         u.Estado_Usu,
         pu.Id_Password_UP,
@@ -25,16 +24,16 @@ export async function GET(request) {
         pa.Fecha_Pas
       FROM 
         tbUsuario u
-        JOIN TbPersona p ON u.Id_Persona_Usu = p.Id_Persona
+        JOIN TbFuncionario f ON u.Id_Funcionario_Usu = f.Id_Funcionario
         LEFT JOIN tbUsuarioPassword pu ON u.Id_Usuario = pu.Id_Usuario_UP
         LEFT JOIN tbPassword pa ON pu.Id_Password_UP = pa.Id_Password
     `;
 
     const params = [];
 
-    // Si se pasa el CI, filtrar por CI de la persona
+    // Si se pasa el CI, filtrar por CI del funcionario
     if (ci) {
-      query += ` WHERE p.CI_Per = ?`;
+      query += ` WHERE f.CI_Funcionario = ?`;
       params.push(ci);
     }
 
@@ -57,28 +56,29 @@ export async function GET(request) {
   }
 }
 
+// POST - Crear un usuario
 export async function POST(request) {
   try {
     const data = await request.json();
-    const { Id_Persona, Usuario, Estado_Usu = 'AC' } = data;
+    const { Id_Funcionario, Usuario, Estado_Usu = 'AC' } = data;
 
     // Verificar que los datos requeridos estén presentes
-    // if (!Id_Persona || !Nombre_Usu) {
-    //   return NextResponse.json(
-    //     { error: 'Faltan datos obligatoriosz', details: data },
-    //     { status: 400 }
-    //   );
-    // }
+    if (!Id_Funcionario || !Usuario) {
+      return NextResponse.json(
+        { error: 'Faltan datos obligatorios', details: data },
+        { status: 400 }
+      );
+    }
 
-    // Verificar si la persona ya tiene una cuenta
+    // Verificar si el funcionario ya tiene una cuenta
     const [existingUser] = await pool.query(
-      'SELECT * FROM tbUsuario WHERE Id_Persona_Usu = ?',
-      [Id_Persona]
+      'SELECT * FROM tbUsuario WHERE Id_Funcionario_Usu = ?',
+      [Id_Funcionario]
     );
 
     if (existingUser.length > 0) {
       return NextResponse.json(
-        { error: 'La persona ya tiene una cuenta registrada' },
+        { error: 'El funcionario ya tiene una cuenta registrada' },
         { status: 400 }
       );
     }
@@ -91,9 +91,9 @@ export async function POST(request) {
 
     // Crear el usuario
     const [userResult] = await pool.query(
-      `INSERT INTO tbUsuario (Id_Persona_Usu, login_Usu, Estado_Usu) 
+      `INSERT INTO tbUsuario (Id_Funcionario_Usu, login_Usu, Estado_Usu) 
        VALUES (?, ?, ?)`,
-      [Id_Persona, Usuario, Estado_Usu]
+      [Id_Funcionario, Usuario, Estado_Usu]
     );
 
     // Obtener el ID del usuario creado
@@ -111,16 +111,16 @@ export async function POST(request) {
 
     // Relacionar el usuario con la contraseña
     await pool.query(
-      `INSERT INTO tbUsuarioPassword (Id_Usuario_UP, Id_Password_UP, Estado_UP) 
-       VALUES (?, ?, ?)`,
-      [userId, passwordId, 'AC']
+      `INSERT INTO tbUsuarioPassword (Id_Usuario_UP, Id_Password_UP) 
+       VALUES (?, ?)`,
+      [userId, passwordId]
     );
 
     return NextResponse.json(
       {
         message: 'Usuario creado correctamente',
         data: {
-          Id_Persona,
+          Id_Funcionario,
           Usuario,
           Password: randomPassword, // Devuelve la contraseña generada para mostrarla una vez
         },
