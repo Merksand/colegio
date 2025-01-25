@@ -4,8 +4,10 @@ import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 
-export default function Sidebar({ isOpen, setIsOpen }) {
+// export default function Sidebar({ isOpen, setIsOpen }) {
+export default function Sidebar() {
     const pathname = usePathname();
+    const [isOpen, setIsOpen] = useState(true);
 
     const menuItems = [
         {
@@ -63,7 +65,16 @@ export default function Sidebar({ isOpen, setIsOpen }) {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
                 </svg>
             )
-        }
+        },
+        {
+            path: "/jurados",
+            name: "Jurados",
+            icon: (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                </svg>
+            )
+        },
     ];
 
     return (
@@ -71,9 +82,8 @@ export default function Sidebar({ isOpen, setIsOpen }) {
             {/* Botón para abrir/cerrar */}
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className={`fixed top-4 ${
-                    isOpen ? "left-56" : "left-4"
-                } z-50 bg-gray-800 text-white p-2 rounded-full transition-all duration-300 hover:bg-gray-700`}
+                className={`fixed top-4 ${isOpen ? "left-56" : "left-4"
+                    } z-50 bg-gray-800 text-white p-2 rounded-full transition-all duration-300 hover:bg-gray-700`}
             >
                 {isOpen ? (
                     <svg
@@ -108,16 +118,14 @@ export default function Sidebar({ isOpen, setIsOpen }) {
 
             {/* Sidebar */}
             <aside
-                className={`fixed top-0 left-0 h-screen bg-gray-800 text-white transition-all duration-300 ease-in-out ${
-                    isOpen ? "w-60" : "w-16"
-                } shadow-lg z-40`}
+                className={`fixed top-0 left-0 h-screen bg-gray-800 text-white transition-all duration-300 ease-in-out ${isOpen ? "w-60" : "w-16"
+                    } shadow-lg z-40`}
             >
                 <nav className="p-4">
                     <div className="mb-8">
                         <h1
-                            className={`text-xl font-bold ${
-                                !isOpen && "hidden"
-                            }`}
+                            className={`text-xl font-bold ${!isOpen && "hidden"
+                                }`}
                         >
                             Sistema Académico
                         </h1>
@@ -127,17 +135,15 @@ export default function Sidebar({ isOpen, setIsOpen }) {
                             <li key={item.path}>
                                 <Link
                                     href={item.path}
-                                    className={`flex items-center gap-2 p-2 rounded-lg transition-colors ${
-                                        pathname === item.path
-                                            ? "bg-blue-600 text-white"
-                                            : "hover:bg-gray-700"
-                                    }`}
+                                    className={`flex items-center gap-2 p-2 rounded-lg transition-colors ${pathname === item.path
+                                        ? "bg-blue-600 text-white"
+                                        : "hover:bg-gray-700"
+                                        }`}
                                 >
                                     {item.icon}
                                     <span
-                                        className={`transition-all ${
-                                            !isOpen && "hidden"
-                                        }`}
+                                        className={`transition-all ${!isOpen && "hidden"
+                                            }`}
                                     >
                                         {item.name}
                                     </span>
@@ -147,6 +153,13 @@ export default function Sidebar({ isOpen, setIsOpen }) {
                     </ul>
                 </nav>
             </aside>
+
+            <style jsx global>{`
+        main {
+          margin-left: ${isOpen ? '16rem' : '4rem'} !important;
+          transition: margin-left 0.3s ease-in-out;
+        }
+      `}</style>
 
             {/* Overlay para cerrar en móviles */}
             {isOpen && (

@@ -100,61 +100,11 @@ export default function RelacionesPage() {
 
     return (
         <div className="flex w-full bg-gray-100">
-            <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
-            <main className={`flex-1 transition-all duration-300 ${sidebarOpen ? "ml-60" : "ml-16"}`}>
-                <div className="p-4">
-                    <div className="overflow-x-auto bg-white rounded-lg shadow">
+            <div className="p-4 w-full">
+                <div className="overflow-x-auto bg-white rounded-lg shadow">
+                    <div className = "flex justify-between items-center">
                         <h1 className="text-2xl font-bold mb-4 p-4">Relaciones Persona-Universidad-Título</h1>
                         {error && <p className="text-red-500 px-4">{error}</p>}
-                        <div className="w-full overflow-x-auto">
-                            <table className="w-full text-sm text-left">
-                                <thead>
-                                    <tr className="bg-gray-200">
-                                        <th className="px-4 py-2">Persona</th>
-                                        <th className="px-4 py-2">Universidad</th>
-                                        <th className="px-4 py-2">Título</th>
-                                        <th className="px-4 py-2">Estado</th>
-                                        <th className="px-4 py-2">Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {relaciones.map((relacion) => (
-                                        <tr key={relacion.Id_PUT} className="border-b hover:bg-gray-50">
-                                            <td className="px-4 py-2">
-                                                {`${relacion.Nombre_Per} ${relacion.Paterno_Per} ${relacion.Materno_Per}`}
-                                            </td>
-                                            <td className="px-4 py-2">{relacion.Nombre_Uni}</td>
-                                            <td className="px-4 py-2">{relacion.Descripcion_Tit}</td>
-                                            <td className="px-4 py-2">
-                                                <span className={`px-2 py-1 rounded-full text-sm ${
-                                                    relacion.Estado_Put === "Activo"
-                                                        ? "bg-green-200 text-green-800"
-                                                        : "bg-red-200 text-red-800"
-                                                }`}>
-                                                    {relacion.Estado_Put}
-                                                </span>
-                                            </td>
-                                            <td className="px-4 py-2">
-                                                <div className="flex gap-2">
-                                                    <button
-                                                        onClick={() => handleEdit(relacion)}
-                                                        className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
-                                                    >
-                                                        Editar
-                                                    </button>
-                                                    <button
-                                                        onClick={() => handleDeleteClick(relacion)}
-                                                        className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-                                                    >
-                                                        Eliminar
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
                         <div className="p-4">
                             <button
                                 onClick={handleAdd}
@@ -164,32 +114,82 @@ export default function RelacionesPage() {
                             </button>
                         </div>
                     </div>
+
+                    <div className="w-full overflow-x-auto">
+                        <table className="w-full text-sm text-left">
+                            <thead>
+                                <tr className="bg-gray-200">
+                                    <th className="border border-gray-300 px-4 py-3 text-[1rem]">Persona</th>
+                                    <th className="border border-gray-300 px-4 py-3 text-[1rem]">Universidad</th>
+                                    <th className="border border-gray-300 px-4 py-3 text-[1rem]">Título</th>
+                                    <th className="border border-gray-300 px-4 py-3 text-[1rem]">Estado</th>
+                                    <th className="border border-gray-300 px-4 py-3 text-[1rem]">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {relaciones.map((relacion) => (
+                                    <tr key={relacion.Id_PUT} className="border-b hover:bg-gray-50">
+                                        <td className="px-4 py-2">
+                                            {`${relacion.Nombre_Per} ${relacion.Paterno_Per} ${relacion.Materno_Per}`}
+                                        </td>
+                                        <td className="border border-gray-300 px-4 py-2">{relacion.Nombre_Uni}</td>
+                                        <td className="border border-gray-300 px-4 py-2">{relacion.Descripcion_Tit}</td>
+                                        <td className="border border-gray-300 px-4 py-2">
+                                            <span className={`px-2 py-1 rounded-full text-sm ${relacion.Estado_PUT === "Activo"
+                                                ? "bg-green-200 text-green-800"
+                                                : "bg-red-200 text-red-800"
+                                                }`}>
+                                                {relacion.Estado_PUT}
+                                            </span>
+                                        </td>
+                                        <td className="border border-gray-300 px-4 py-2">
+                                            <div className="flex gap-2">
+                                                <button
+                                                    onClick={() => handleEdit(relacion)}
+                                                    className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+                                                >
+                                                    Editar
+                                                </button>
+                                                <button
+                                                    onClick={() => handleDeleteClick(relacion)}
+                                                    className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                                                >
+                                                    Eliminar
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
+            </div>
 
-                {(editingRelacion || isAdding) && (
-                    <RelacionForm
-                        relacion={editingRelacion}
-                        onSubmit={handleSubmit}
-                        onCancel={handleCancel}
-                    />
-                )}
-
-                <ConfirmDialog
-                    isOpen={deleteConfirm.isOpen}
-                    onClose={() => setDeleteConfirm({ isOpen: false, relacionId: null, personaNombre: null })}
-                    onConfirm={handleDelete}
-                    title="Confirmar Eliminación"
-                    message={`¿Está seguro que desea eliminar la relación de ${deleteConfirm.personaNombre}?`}
+            {(editingRelacion || isAdding) && (
+                <RelacionForm
+                    relacion={editingRelacion}
+                    onSubmit={handleSubmit}
+                    onCancel={handleCancel}
                 />
+            )}
 
-                {toast.show && (
-                    <Toast
-                        message={toast.message}
-                        type={toast.type}
-                        onClose={() => setToast({ show: false, message: "", type: "success" })}
-                    />
-                )}
-            </main>
+            <ConfirmDialog
+                isOpen={deleteConfirm.isOpen}
+                onClose={() => setDeleteConfirm({ isOpen: false, relacionId: null, personaNombre: null })}
+                onConfirm={handleDelete}
+                title="Confirmar Eliminación"
+                message={`¿Está seguro que desea eliminar la relación de ${deleteConfirm.personaNombre}?`}
+            />
+
+            {toast.show && (
+                <Toast
+                    message={toast.message}
+                    type={toast.type}
+                    onClose={() => setToast({ show: false, message: "", type: "success" })}
+                />
+            )}
         </div>
     );
 } 
