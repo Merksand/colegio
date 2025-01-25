@@ -102,7 +102,7 @@ export default function Jurados() {
     return (
         <div className="flex w-full bg-gray-100 rounded-lg">
             <div className="p-4 w-full">
-                <div className="overflow-x-auto bg-white rounded-lg shadow">
+                <div className="overflow-x-auto  rounded-lg shadow">
                     <div className="flex justify-between items-center">
                         <h1 className="text-2xl font-bold mb-4 p-4">Lista de Jurados</h1>
                         {error && <p className="text-red-500 px-4">{error}</p>}

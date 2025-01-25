@@ -2,10 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* :root {
   --background: #ffffff;
   --foreground: #171717;
-  color-scheme: light dark;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -13,7 +12,7 @@
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 /* body {
   color: var(--foreground);
@@ -24,3 +23,9 @@
 /* body{
   background: #333;
 } */
+
+:root{
+  color-scheme: light dark;
+  background-color: #333;
+  color: black;
+}
