@@ -67,8 +67,8 @@ export default function PersonaForm({ persona, onSubmit, onCancel }) {
                             required
                         >
                             <option value="">Seleccione...</option>
-                            <option value="Masculino">M</option>
-                            <option value="Femenino">F</option>
+                            <option value="M">M</option>
+                            <option value="F">F</option>
                         </select>
                     </div>
                     <div>

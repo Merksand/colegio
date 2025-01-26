@@ -83,6 +83,7 @@ export default function Personas() {
             }
             fetchPersonas();
         } catch (err) {
+            console.log(err)
             showToast("Error en la operación", 'error');
         }
     };
@@ -99,7 +100,7 @@ export default function Personas() {
                 <div className="overflow-x-auto bg-white rounded-lg shadow">
 
                     <div className="flex justify-between items-center">
-                        <h1 className="text-2xl font-bold mb-4 p-4">Lista de Personaszz</h1>
+                        <h1 className="text-2xl font-bold mb-4 p-4">Lista de Personas</h1>
                         {error && <p className="text-red-500 px-4">{error}</p>}
                         <div className="mt-4">
                             <button
@@ -177,6 +178,7 @@ export default function Personas() {
             </div>
 
             {(editingPersona || isAdding) && (
+                console.log(editingPersona),
                 <PersonaForm
                     persona={editingPersona}
                     onSubmit={handleSubmit}

@@ -92,6 +92,7 @@ export default function Universidades() {
             }
             fetchUniversidades();
         } catch (err) {
+            console.log(err)
             showToast("Error en la operación", "error");
         }
     };

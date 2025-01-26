@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
     try {
-        const personas = await query("SELECT * FROM TbPersona");
+        const personas = await query("SELECT * FROM TbPersona WHERE Estado_Per = 'AC'");
         console.log("Personas obtenidas:", personas);
         return NextResponse.json(personas);
     } catch (error) {
@@ -33,7 +33,7 @@ export async function POST(request) {
             Correo_Per,
             Telefono_Per,
             LDN_Per,
-            Estado_Per,
+            Estado_Per = "AC",
         } = body;
 
         const result = await query(

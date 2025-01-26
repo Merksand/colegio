@@ -38,7 +38,7 @@ export async function DELETE(request, { params }) {
     try {
         const { id } = params;
         const result = await query(
-            'DELETE FROM TbUniversidad WHERE Id_Universidad = ?',
+            'UPDATE TbUniversidad SET Estado_Uni = "BA" WHERE Id_Universidad = ?',
             [id]
         );
 

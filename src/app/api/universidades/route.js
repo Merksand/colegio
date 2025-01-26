@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
     try {
-        const universidades = await query("SELECT * FROM TbUniversidad");
+        const universidades = await query("SELECT * FROM TbUniversidad WHERE Estado_Uni = 'AC'");
         return NextResponse.json(universidades);
     } catch (error) {
         console.error("Error al obtener universidades:", error);
@@ -17,7 +17,7 @@ export async function GET() {
 export async function POST(request) {
     try {
         const body = await request.json();
-        const { Nombre_Uni, Tipo_Uni, Sede_Uni, Estado_Uni } = body;
+        const { Nombre_Uni, Tipo_Uni, Sede_Uni, Estado_Uni = 'AC' } = body;
 
         const result = await query(
             "INSERT INTO TbUniversidad (Nombre_Uni, Tipo_Uni, Sede_Uni, Estado_Uni) VALUES (?, ?, ?, ?)",
