@@ -173,7 +173,7 @@ export default function Titulos() {
                 onClose={() => setDeleteConfirm({ isOpen: false, tituloId: null, tituloNombre: null })}
                 onConfirm={handleDelete}
                 title="Confirmar Eliminación"
-                message={`¿Está seguro que desea eliminar el título "${deleteConfirm.tituloNombre}"?`}
+                message={<>¿Está seguro que desea eliminar el título <strong>{deleteConfirm.tituloNombre}</strong>?</>}
             />
 
             {toast.show && (

@@ -33,18 +33,6 @@ export default function TituloForm({ titulo, onSubmit, onCancel }) {
                             <option value="Técnico">Técnico</option>
                         </select>
                     </div>
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700">Estado</label>
-                        <select
-                            name="Estado_Tit"
-                            defaultValue={titulo?.Estado_Tit}
-                            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
-                            required
-                        >
-                            <option value="Activo">Activo</option>
-                            <option value="Inactivo">Inactivo</option>
-                        </select>
-                    </div>
                     <div className="flex justify-end gap-2 mt-4">
                         <button
                             type="button"

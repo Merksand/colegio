@@ -13,6 +13,8 @@ export default function LoginPage() {
     e.preventDefault();
     setError(null);
 
+    console.log("DATOS ENVIADOS, ", username, password);
+
     try {
       // Realiza la petición al endpoint de autenticación
       const response = await fetch("/api/auth/login", {
@@ -24,12 +26,15 @@ export default function LoginPage() {
       });
 
       if (!response.ok) {
-        throw new Error("Usuario o contraseña incorrectos");
+        const errorData = await response.json();
+        console.log(errorData)
+        throw new Error(errorData.error || "Usuario o contraseña incorrectos");
       }
 
       // Redirige al dashboard después de un inicio de sesión exitoso
-      router.push("/dashboard");
+      router.push("/personas");
     } catch (err) {
+      console.log(err)
       setError(err.message);
     }
   };

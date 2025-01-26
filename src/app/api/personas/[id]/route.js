@@ -29,8 +29,7 @@ export async function PUT(request, { params }) {
                 FDN_Per = ?, 
                 Correo_Per = ?, 
                 Telefono_Per = ?, 
-                LDN_Per = ?, 
-                Estado_Per = ? 
+                LDN_Per = ?
             WHERE Id_Persona = ?`,
             [
                 body.CI_Per,
@@ -43,7 +42,6 @@ export async function PUT(request, { params }) {
                 body.Correo_Per,
                 body.Telefono_Per,
                 body.LDN_Per,
-                body.Estado_Per,
                 personaId
             ]
         );
@@ -86,5 +84,28 @@ export async function GET(request, { params }) {
         return NextResponse.json(rows[0]);
     } catch (error) {
         return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+}
+
+export async function DELETE(request, { params }) {
+    try {
+        const { id } = await params;
+        const result = await query('UDPATE TbPersona SET Estado_Per = "BA" WHERE CI_Per = ?', [id]);
+
+        if (result.affectedRows === 0) {
+            return NextResponse.json({ error: 'Persona no encontrada' }, { status: 404 });
+        }
+
+        return NextResponse.json({ message: 'Persona eliminada exitosamente' });
+    } catch (error) {
+        console.error("Error completo:", error);
+        return NextResponse.json(
+            {
+                error: "Error al eliminar persona",
+                details: error.message,
+                sqlMessage: error.sqlMessage
+            },
+            { status: 500 }
+        );
     }
 }

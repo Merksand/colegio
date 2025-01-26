@@ -33,7 +33,7 @@ export async function POST(request) {
       Correo_Fun,
       Telefono_Fun,
       LDN_Fun,
-      Estado_Fun = 'Activo'
+      Estado_Fun = 'AC'
     } = data;
 
     // Verificar que los datos requeridos estén presentes

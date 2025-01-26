@@ -124,7 +124,6 @@ export default function Personas() {
                                     <th className="border border-gray-300 px-3 py-3 text-[1rem]">Lugar Nac.</th>
                                     <th className="border border-gray-300 px-3 py-3 text-[1rem]">Correo</th>
                                     <th className="border border-gray-300 px-3 py-3 text-[1rem]">Teléfono</th>
-                                    <th className="border border-gray-300 px-3 py-3 text-[1rem]">Estado</th>
                                     <th className="border border-gray-300 px-3 py-3 text-[1rem]">Acciones</th>
                                 </tr>
                             </thead>
@@ -142,14 +141,7 @@ export default function Personas() {
                                             <td className="border border-gray-300 px-3 py-1">{persona.LDN_Per}</td>
                                             <td className="border border-gray-300 px-3 py-1">{persona.Correo_Per}</td>
                                             <td className="border border-gray-300 px-3 py-1">{persona.Telefono_Per}</td>
-                                            <td className="border border-gray-300 px-3 py-1">
-                                                <span className={`px-2 py-1 rounded-full text-sm ${persona.Estado_Per === 'Activo'
-                                                    ? 'bg-green-200 text-green-800'
-                                                    : 'bg-red-200 text-red-800'
-                                                    }`}>
-                                                    {persona.Estado_Per}
-                                                </span>
-                                            </td>
+                                            
                                             <td className="border border-gray-300 px-4 py-2">
                                                 <div className="flex gap-2 justify-center">
                                                     <button
@@ -197,7 +189,7 @@ export default function Personas() {
                 onClose={() => setDeleteConfirm({ isOpen: false, personaId: null, personaNombre: null })}
                 onConfirm={handleDelete}
                 title="Confirmar Eliminación"
-                message={`¿Está seguro que desea eliminar a ${deleteConfirm.personaNombre}? Esta acción no se puede deshacer.`}
+                message={<>¿Desea eliminar la persona <strong>{deleteConfirm.personaNombre}</strong>?</>}
             />
 
             {toast.show && (

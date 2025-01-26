@@ -173,7 +173,7 @@ export default function Universidades() {
                 onClose={() => setDeleteConfirm({ isOpen: false, universidadId: null, universidadNombre: null })}
                 onConfirm={handleDelete}
                 title="Confirmar Eliminación"
-                message={`¿Está seguro que desea eliminar la universidad ${deleteConfirm.universidadNombre}?`}
+                message={<>¿Está seguro que desea eliminar la universidad <strong>{deleteConfirm.universidadNombre}</strong>?</>}
             />
 
             {toast.show && (

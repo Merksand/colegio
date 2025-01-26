@@ -27,7 +27,7 @@ export async function POST(request) {
           Correo_Per,
           Telefono_Per,
           LDN_Per,
-          Estado_Per = 'Activo'
+          Estado_Per = 'AC'
       } = data;
 
       const [result] = await pool.query(

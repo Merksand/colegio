@@ -67,8 +67,8 @@ export default function PersonaForm({ persona, onSubmit, onCancel }) {
                             required
                         >
                             <option value="">Seleccione...</option>
-                            <option value="Masculino">Masculino</option>
-                            <option value="Femenino">Femenino</option>
+                            <option value="Masculino">M</option>
+                            <option value="Femenino">F</option>
                         </select>
                     </div>
                     <div>
@@ -147,20 +147,7 @@ export default function PersonaForm({ persona, onSubmit, onCancel }) {
                             required
                         />
                     </div>
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700">
-                            Estado
-                        </label>
-                        <select
-                            name="Estado_Per"
-                            defaultValue={persona?.Estado_Per}
-                            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"
-                            required
-                        >
-                            <option value="Activo">Activo</option>
-                            <option value="Inactivo">Inactivo</option>
-                        </select>
-                    </div>
+                     
                     <div className="col-span-2 flex justify-end gap-2 mt-4">
                         <button
                             type="button"
