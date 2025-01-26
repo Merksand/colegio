@@ -3,51 +3,58 @@ import { NextResponse } from "next/server";
 
 export async function PUT(request, { params }) {
     try {
-        const { id } = params; // ID de la relación a actualizar
+        const { id } = params;
         const body = await request.json();
         const {
-            Id_Persona_Put,
-            Id_Universidad_Put,
-            Id_Titulo_Put,
-            Tema_PUT = null,
-            Fecha_PUT = null,
-            Hora_PUT = null,
-            Nota_PUT = null,
-            Observacion_PUT = null,
-            Estado_Put = "AC", // Estado por defecto
+            Id_Persona_PUT,
+            Id_Universidad_PUT,
+            Id_Titulo_PUT,
+            Tema_PUT,
+            Fecha_PUT,
+            Hora_PUT,
+            Nota_PUT,
+            Observacion_PUT,
+            Estado_PUT,
         } = body;
 
-        // Validar los campos obligatorios
-        if (!Id_Persona_Put || !Id_Universidad_Put || !Id_Titulo_Put) {
+        // Validar que todos los campos requeridos están presentes
+        if (
+            !Id_Persona_PUT ||
+            !Id_Universidad_PUT ||
+            !Id_Titulo_PUT ||
+            !Tema_PUT ||
+            !Fecha_PUT ||
+            !Hora_PUT ||
+            !Nota_PUT
+        ) {
             return NextResponse.json(
-                { error: "Los campos Id_Persona_Put, Id_Universidad_Put e Id_Titulo_Put son obligatorios" },
+                { error: "Todos los campos son obligatorios." },
                 { status: 400 }
             );
         }
 
-        // Actualizar la relación
         const result = await query(
             `UPDATE TbPersonaUniversidadTitulo SET 
-                Id_Persona_Put = ?,
-                Id_Universidad_Put = ?,
-                Id_Titulo_Put = ?,
-                Tema_PUT = ?,
-                Fecha_PUT = ?,
-                Hora_PUT = ?,
-                Nota_PUT = ?,
-                Observacion_PUT = ?,
-                Estado_Put = ?
+                Id_Persona_PUT = ?, 
+                Id_Universidad_PUT = ?, 
+                Id_Titulo_PUT = ?, 
+                Tema_PUT = ?, 
+                Fecha_PUT = ?, 
+                Hora_PUT = ?, 
+                Nota_PUT = ?, 
+                Observacion_PUT = ?, 
+                Estado_PUT = ?
             WHERE Id_PUT = ?`,
             [
-                Id_Persona_Put,
-                Id_Universidad_Put,
-                Id_Titulo_Put,
+                Id_Persona_PUT,
+                Id_Universidad_PUT,
+                Id_Titulo_PUT,
                 Tema_PUT,
                 Fecha_PUT,
                 Hora_PUT,
                 Nota_PUT,
                 Observacion_PUT,
-                Estado_Put,
+                Estado_PUT,
                 id,
             ]
         );

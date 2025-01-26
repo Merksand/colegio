@@ -139,7 +139,7 @@ export default function RelacionesPage() {
                                     <th className="border px-4 py-3">Universidad</th>
                                     <th className="border px-4 py-3">Título</th>
                                     <th className="border px-4 py-3">Tema</th>
-                                    <th className="border px-4 py-3">Estado</th>
+                                    <th className="border px-4 py-3">Fecha</th>
                                     <th className="border px-4 py-3">Acciones</th>
                                 </tr>
                             </thead>
@@ -153,17 +153,7 @@ export default function RelacionesPage() {
                                             <td className="px-4 py-2">{relacion.Nombre_Uni}</td>
                                             <td className="px-4 py-2">{relacion.Descripcion_Tit}</td>
                                             <td className="px-4 py-2">{relacion.Tema_PUT || "N/A"}</td>
-                                            <td className="px-4 py-2">
-                                                <span
-                                                    className={`px-2 py-1 rounded-full text-sm ${
-                                                        relacion.Estado_PUT === "Activo"
-                                                            ? "bg-green-200 text-green-800"
-                                                            : "bg-red-200 text-red-800"
-                                                    }`}
-                                                >
-                                                    {relacion.Estado_PUT}
-                                                </span>
-                                            </td>
+                                            <td className="px-4 py-2">{new Date (relacion.Fecha_PUT).toLocaleDateString() || "N/A"}</td>
                                             <td className="px-4 py-2">
                                                 <div className="flex gap-2">
                                                     <button
