@@ -5,16 +5,31 @@ export async function PUT(request, { params }) {
     try {
         const { id } = params;
         const body = await request.json();
-        const { Nombre_Uni, Tipo_Uni, Sede_Uni, Estado_Uni } = body;
 
+        // Destructurando los datos enviados desde el frontend
+        const { Nombre_Uni, Tipo_Uni, Sede_Uni } = body;
+
+        // Validar que los campos obligatorios estén presentes
+        if (!Nombre_Uni ) {
+            return NextResponse.json(
+                { error: "Los campos Nombre y Estado son obligatorios." },
+                { status: 400 }
+            );
+        }
+
+        // Reemplazar valores undefined o vacíos por null
         const result = await query(
             `UPDATE TbUniversidad SET 
                 Nombre_Uni = ?, 
                 Tipo_Uni = ?, 
-                Sede_Uni = ?, 
-                Estado_Uni = ? 
+                Sede_Uni = ?
             WHERE Id_Universidad = ?`,
-            [Nombre_Uni, Tipo_Uni, Sede_Uni, Estado_Uni, id]
+            [
+                Nombre_Uni,
+                Tipo_Uni || null,
+                Sede_Uni || null,
+                id,
+            ]
         );
 
         if (result.affectedRows === 0) {
@@ -26,13 +41,14 @@ export async function PUT(request, { params }) {
 
         return NextResponse.json({ message: "Universidad actualizada exitosamente" });
     } catch (error) {
-        console.error("Error al actualizar:", error);
+        console.error("Error al actualizar universidad:", error);
         return NextResponse.json(
-            { error: "Error al actualizar universidad", details: error.message },
+            { error: "Error interno del servidor", details: error.message },
             { status: 500 }
         );
     }
 }
+
 
 export async function DELETE(request, { params }) {
     try {

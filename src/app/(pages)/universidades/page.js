@@ -75,27 +75,24 @@ export default function Universidades() {
         }
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const formData = new FormData(e.target);
-        const data = Object.fromEntries(formData.entries());
-
+    const handleSubmit = async (formData) => {
         try {
             if (editingUniversidad) {
-                await axios.put(`/api/universidades/${editingUniversidad.Id_Universidad}`, data);
-                setEditingUniversidad(null);
+                await axios.put(`/api/universidades/${editingUniversidad.Id_Universidad}`, formData);
                 showToast("Universidad actualizada exitosamente");
             } else {
-                await axios.post("/api/universidades", data);
-                setIsAdding(false);
+                await axios.post("/api/universidades", formData);
                 showToast("Universidad agregada exitosamente");
             }
-            fetchUniversidades();
+            fetchUniversidades(); // Refrescar datos
+            handleCancel(); // Cerrar el formulario
         } catch (err) {
-            console.log(err)
+            console.error("Error en la solicitud:", err);
             showToast("Error en la operación", "error");
         }
     };
+
+
 
     return (
         <div className="flex w-full bg-gray-100">
