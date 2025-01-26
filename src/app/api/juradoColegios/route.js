@@ -6,7 +6,7 @@ export async function GET() {
         const [rows] = await pool.query(`
             SELECT jc.Id_JuradoColegio, jc.Id_Jurado_JC, jc.Id_Colegio_JC, jc.Fecha_Ini_JC, 
                    jc.Fecha_Fin_JC, jc.Observacion_JC, jc.Estado_FCC, 
-                   j.Nombre_Jur AS NombreJurado, c.Nombre_Col AS NombreColegio
+                   j.Nombre_Jur AS NombreJurado,j.Paterno_Jur AS JuradoPaterno , c.Nombre_Col AS NombreColegio
             FROM TbJuradoColegio jc
             INNER JOIN TbJurado j ON jc.Id_Jurado_JC = j.Id_Jurado
             INNER JOIN TbColegio c ON jc.Id_Colegio_JC = c.Id_Colegio
@@ -19,7 +19,7 @@ export async function GET() {
     }
 }
 
- 
+
 export async function POST(request) {
     try {
         const { Id_Jurado_JC, Id_Colegio_JC, Fecha_Ini_JC, Fecha_Fin_JC, Observacion_JC } = await request.json();

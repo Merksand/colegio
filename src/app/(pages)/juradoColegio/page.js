@@ -73,8 +73,8 @@ export default function JuradoColegioPage() {
         e.preventDefault();
         const formData = new FormData(e.target);
         const data = Object.fromEntries(formData.entries());
-        console.log(formData)
-        console.log(data)
+        // console.log(formData)
+        // console.log(data)
 
         try {
             if (editingJuradoColegio) {
@@ -117,22 +117,20 @@ export default function JuradoColegioPage() {
                         <table className="w-full text-sm text-left table-auto">
                             <thead>
                                 <tr className="bg-gray-200">
-                                    <th className="border border-gray-300 px-3 py-3 text-[1rem]">ID</th>
-                                    <th className="border border-gray-300 px-3 py-3 text-[1rem]">Jurado ID</th>
-                                    <th className="border border-gray-300 px-3 py-3 text-[1rem]">Colegio ID</th>
-                                    <th className="border border-gray-300 px-3 py-3 text-[1rem]">Fecha Inicio</th>
-                                    <th className="border border-gray-300 px-3 py-3 text-[1rem]">Fecha Fin</th>
-                                    <th className="border border-gray-300 px-3 py-3 text-[1rem]">Observación</th>
-                                    <th className="border border-gray-300 px-3 py-3 text-[1rem]">Acciones</th>
+                                    <th className="border border-gray-300 px-3 py-2 text-[1rem]">Jurado</th>
+                                    <th className="border border-gray-300 px-3 py-2 text-[1rem]">Colegio</th>
+                                    <th className="border border-gray-300 px-3 py-2 text-[1rem]">Fecha Inicio</th>
+                                    <th className="border border-gray-300 px-3 py-2 text-[1rem]">Fecha Fin</th>
+                                    <th className="border border-gray-300 px-3 py-2 text-[1rem]">Observación</th>
+                                    <th className="border border-gray-300 px-3 py-2 text-[1rem]">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {juradoColegios && juradoColegios.length > 0 ? (
                                     juradoColegios.map((juradoColegio) => (
                                         <tr key={juradoColegio.Id_JuradoColegio} className="hover:bg-gray-50">
-                                            <td className="border border-gray-300 px-3 py-1">{juradoColegio.Id_JuradoColegio}</td>
-                                            <td className="border border-gray-300 px-3 py-1">{juradoColegio.Id_Jurado_JC}</td>
-                                            <td className="border border-gray-300 px-3 py-1">{juradoColegio.Id_Colegio_JC}</td>
+                                            <td className="border border-gray-300 px-3 py-1">{juradoColegio.NombreJurado + " " + juradoColegio.JuradoPaterno}</td>
+                                            <td className="border border-gray-300 px-3 py-1">{juradoColegio.NombreColegio}</td>
                                             <td className="border border-gray-300 px-3 py-1">{new Date(juradoColegio.Fecha_Ini_JC).toLocaleDateString()}</td>
                                             <td className="border border-gray-300 px-3 py-1">{new Date(juradoColegio.Fecha_Fin_JC).toLocaleDateString()}</td>
                                             <td className="border border-gray-300 px-3 py-1">{juradoColegio.Observacion_JC}</td>

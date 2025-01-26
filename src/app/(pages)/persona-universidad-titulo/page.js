@@ -135,12 +135,12 @@ export default function RelacionesPage() {
                         <table className="w-full text-sm text-left">
                             <thead>
                                 <tr className="bg-gray-200">
-                                    <th className="border px-4 py-3">Persona</th>
-                                    <th className="border px-4 py-3">Universidad</th>
-                                    <th className="border px-4 py-3">Título</th>
-                                    <th className="border px-4 py-3">Tema</th>
-                                    <th className="border px-4 py-3">Fecha</th>
-                                    <th className="border px-4 py-3">Acciones</th>
+                                    <th className="border border-gray-300 px-4 py-3 text-[1rem]">Persona</th>
+                                    <th className="border border-gray-300 px-4 py-3 text-[1rem]">Universidad</th>
+                                    <th className="border border-gray-300 px-4 py-3 text-[1rem]">Título</th>
+                                    <th className="border border-gray-300 px-4 py-3 text-[1rem]">Tema</th>
+                                    <th className="border border-gray-300 px-4 py-3 text-[1rem]">Fecha</th>
+                                    <th className="border border-gray-300 px-4 py-3 text-[1rem]">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -150,11 +150,11 @@ export default function RelacionesPage() {
                                             <td className="px-4 py-2">
                                                 {`${relacion.Nombre_Per} ${relacion.Paterno_Per} ${relacion.Materno_Per}`}
                                             </td>
-                                            <td className="px-4 py-2">{relacion.Nombre_Uni}</td>
-                                            <td className="px-4 py-2">{relacion.Descripcion_Tit}</td>
-                                            <td className="px-4 py-2">{relacion.Tema_PUT || "N/A"}</td>
-                                            <td className="px-4 py-2">{new Date (relacion.Fecha_PUT).toLocaleDateString() || "N/A"}</td>
-                                            <td className="px-4 py-2">
+                                            <td className="border border-gray-300 px-4 py-2">{relacion.Nombre_Uni}</td>
+                                            <td className="border border-gray-300 px-4 py-2">{relacion.Descripcion_Tit}</td>
+                                            <td className="border border-gray-300 px-4 py-2">{relacion.Tema_PUT || "N/A"}</td>
+                                            <td className="border border-gray-300 px-4 py-2">{new Date (relacion.Fecha_PUT).toLocaleDateString() || "N/A"}</td>
+                                            <td className="border border-gray-300 px-4 py-2">
                                                 <div className="flex gap-2">
                                                     <button
                                                         onClick={() => handleEdit(relacion)}

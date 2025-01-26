@@ -39,6 +39,7 @@ export default function JuradoColegioForm({ juradoColegio, onSubmit, onCancel })
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
+        console.log(e)
         onSubmit({
             Id_Jurado_JC: formData.Id_Jurado_JC,
             Id_Colegio_JC: formData.Id_Colegio_JC,
