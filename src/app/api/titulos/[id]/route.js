@@ -5,15 +5,14 @@ export async function PUT(request, { params }) {
     try {
         const { id } = params;
         const body = await request.json();
-        const { Descripcion_Tit, Nivel_Tit, Estado_Tit } = body;
+        const { Descripcion_Tit, Nivel_Tit } = body;
 
         const result = await query(
             `UPDATE TbTitulo SET 
                 Descripcion_Tit = ?, 
-                Nivel_Tit = ?, 
-                Estado_Tit = ? 
+                Nivel_Tit = ? 
             WHERE Id_Titulo = ?`,
-            [Descripcion_Tit, Nivel_Tit, Estado_Tit, id]
+            [Descripcion_Tit, Nivel_Tit, id]
         );
 
         if (result.affectedRows === 0) {
@@ -37,7 +36,7 @@ export async function DELETE(request, { params }) {
     try {
         const { id } = params;
         const result = await query(
-            'DELETE FROM TbTitulo WHERE Id_Titulo = ?',
+            'UPDATE TbTitulo SET Estado_Tit = "BA" WHERE Id_Titulo = ?',
             [id]
         );
 

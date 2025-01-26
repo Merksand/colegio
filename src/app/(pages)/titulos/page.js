@@ -100,7 +100,7 @@ export default function Titulos() {
         <>
             <div className="p-4 w-full bg-gray-100 rounded-lg">
                 <div className="overflow-x-auto bg-white rounded-lg shadow">
-                    <div className = "flex justify-between items-center">
+                    <div className="flex justify-between items-center">
                         <h1 className="text-2xl font-bold mb-4 p-4">Lista de Títulos</h1>
                         {error && <p className="text-red-500 px-4">{error}</p>}
                         <div className="p-4">
@@ -118,7 +118,6 @@ export default function Titulos() {
                                 <tr className="bg-gray-200">
                                     <th className="border border-gray-300  px-4 py-3 text-[1rem]">Descripción</th>
                                     <th className="border border-gray-300  px-4 py-3 text-[1rem]">Nivel</th>
-                                    <th className="border border-gray-300  px-4 py-3 text-[1rem]">Estado</th>
                                     <th className="border border-gray-300  px-4 py-3 text-[1rem]">Acciones</th>
                                 </tr>
                             </thead>
@@ -127,14 +126,6 @@ export default function Titulos() {
                                     <tr key={titulo.Id_Titulo} className="border-b hover:bg-gray-50">
                                         <td className="border border-gray-300  px-4 py-2">{titulo.Descripcion_Tit}</td>
                                         <td className="border border-gray-300  px-4 py-2">{titulo.Nivel_Tit}</td>
-                                        <td className="border border-gray-300  px-4 py-2">
-                                            <span className={`px-2 py-1 rounded-full text-sm ${titulo.Estado_Tit === "Activo"
-                                                ? "bg-green-200 text-green-800"
-                                                : "bg-red-200 text-red-800"
-                                                }`}>
-                                                {titulo.Estado_Tit}
-                                            </span>
-                                        </td>
                                         <td className="border border-gray-300  px-4 py-2">
                                             <div className="flex gap-2">
                                                 <button

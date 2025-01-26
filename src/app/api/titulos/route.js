@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
     try {
-        const titulos = await query("SELECT * FROM TbTitulo");
+        const titulos = await query("SELECT * FROM TbTitulo WHERE Estado_Tit = 'AC'");
         return NextResponse.json(titulos);
     } catch (error) {
         console.error("Error al obtener títulos:", error);
@@ -17,7 +17,7 @@ export async function GET() {
 export async function POST(request) {
     try {
         const body = await request.json();
-        const { Descripcion_Tit, Nivel_Tit, Estado_Tit } = body;
+        const { Descripcion_Tit, Nivel_Tit, Estado_Tit = "AC" } = body;
 
         const result = await query(
             "INSERT INTO TbTitulo (Descripcion_Tit, Nivel_Tit, Estado_Tit) VALUES (?, ?, ?)",

@@ -54,7 +54,7 @@ export async function PUT(request, { params }) {
 // Ruta: /api/jurados/[id]
 export async function DELETE(request, { params }) {
   try {
-    const [result] = await pool.query("DELETE FROM TbJurado WHERE Id_Jurado = ?", [params.id]);
+    const [result] = await pool.query("UPDATE TbJurado SET Estado_Per = 'BA' WHERE Id_Jurado = ?", [params.id]);
 
     if (result.affectedRows === 0) {
       return NextResponse.json({ error: "Jurado no encontrado" }, { status: 404 });

@@ -84,8 +84,8 @@ export default function Universidades() {
                 await axios.post("/api/universidades", formData);
                 showToast("Universidad agregada exitosamente");
             }
-            fetchUniversidades(); // Refrescar datos
-            handleCancel(); // Cerrar el formulario
+            fetchUniversidades();
+            handleCancel();
         } catch (err) {
             console.error("Error en la solicitud:", err);
             showToast("Error en la operación", "error");
@@ -115,7 +115,6 @@ export default function Universidades() {
                                     <th className="border border-gray-300 px-4 py-3 text-[1rem]">Nombre</th>
                                     <th className="border border-gray-300 px-4 py-3 text-[1rem]">Tipo</th>
                                     <th className="border border-gray-300 px-4 py-3 text-[1rem]">Sede</th>
-                                    <th className="border border-gray-300 px-4 py-3 text-[1rem]">Estado</th>
                                     <th className="border border-gray-300 px-4 py-3 text-[1rem]">Acciones</th>
                                 </tr>
                             </thead>
@@ -125,14 +124,6 @@ export default function Universidades() {
                                         <td className="border border-gray-300 px-4 py-2">{universidad.Nombre_Uni}</td>
                                         <td className="border border-gray-300 px-4 py-2">{universidad.Tipo_Uni}</td>
                                         <td className="border border-gray-300 px-4 py-2">{universidad.Sede_Uni}</td>
-                                        <td className="border border-gray-300 px-4 py-2">
-                                            <span className={`px-2 py-1 rounded-full text-sm ${universidad.Estado_Uni === "Activo"
-                                                ? "bg-green-200 text-green-800"
-                                                : "bg-red-200 text-red-800"
-                                                }`}>
-                                                {universidad.Estado_Uni}
-                                            </span>
-                                        </td>
                                         <td className="px-4 py-2">
                                             <div className="flex gap-2">
                                                 <button
