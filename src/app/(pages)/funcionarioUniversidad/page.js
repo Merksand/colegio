@@ -14,7 +14,9 @@ export default function FuncionarioUniversidadPage() {
     const [deleteConfirm, setDeleteConfirm] = useState({
         isOpen: false,
         fuId: null,
-        fuName: null
+        fuName: null,
+        funcionario: null,
+        universidad: null
     });
     const [toast, setToast] = useState({
         show: false,
@@ -47,10 +49,14 @@ export default function FuncionarioUniversidadPage() {
     };
 
     const handleDeleteClick = (fu) => {
+        console.log(fu)
+        
         setDeleteConfirm({
             isOpen: true,
             fuId: fu.Id_FuncionarioUniversidad,
-            fuName: `Funcionario ID ${fu.Id_Funcionario_FU}, Universidad ID ${fu.Id_Universidad_FU}`
+            fuName: `Funcionario ID ${fu.Id_Funcionario_FU}, Universidad ID ${fu.Id_Universidad_FU}`,
+            funcionario: `${fu.FuncionarioNombre} ${fu.FuncionarioPaterno} ${fu.FuncionarioMaterno}`,
+            universidad: fu.UniversidadNombre
         });
     };
 
@@ -79,15 +85,15 @@ export default function FuncionarioUniversidadPage() {
                 await axios.post('/api/funcionarioUniversidades', data);
                 showToast('Relación Funcionario-Universidad agregada exitosamente');
             }
-    
+
             setEditingFU(null);
             setIsAdding(false);
-            fetchFuncionarioUniversidades(); 
+            fetchFuncionarioUniversidades();
         } catch (err) {
             showToast("Error en la operación", 'error');
         }
     };
-    
+
 
     // Manejar cancelación
     const handleCancel = () => {
@@ -115,7 +121,6 @@ export default function FuncionarioUniversidadPage() {
                         <table className="w-full text-sm text-left table-auto">
                             <thead>
                                 <tr className="bg-gray-200">
-                                    <th className="border border-gray-300 px-3 py-3 text-[1rem]">ID</th>
                                     <th className="border border-gray-300 px-3 py-3 text-[1rem]">Funcionario</th>
                                     <th className="border border-gray-300 px-3 py-3 text-[1rem]">Universidad</th>
                                     <th className="border border-gray-300 px-3 py-3 text-[1rem]">Fecha Inicio</th>
@@ -128,8 +133,7 @@ export default function FuncionarioUniversidadPage() {
                                 {funcionarioUniversidades && funcionarioUniversidades.length > 0 ? (
                                     funcionarioUniversidades.map((fu) => (
                                         <tr key={fu.Id_FuncionarioUniversidad} className="hover:bg-gray-50">
-                                            <td className="border border-gray-300 px-3 py-1">{fu.Id_FuncionarioUniversidad}</td>
-                                            <td className="border border-gray-300 px-3 py-1">{fu.FuncionarioNombre + ' ' + fu.FuncionarioPaterno}</td>
+                                            <td className="border border-gray-300 px-3 py-1">{fu.FuncionarioNombre + ' ' + fu.FuncionarioPaterno + ' ' + fu.FuncionarioMaterno} </td>
                                             <td className="border border-gray-300 px-3 py-1">{fu.UniversidadNombre}</td>
                                             <td className="border border-gray-300 px-3 py-1">{new Date(fu.Fecha_Ini_FU).toLocaleDateString()}</td>
                                             <td className="border border-gray-300 px-3 py-1">{new Date(fu.Fecha_Fin_FU).toLocaleDateString()}</td>
@@ -175,10 +179,15 @@ export default function FuncionarioUniversidadPage() {
 
             <ConfirmDialog
                 isOpen={deleteConfirm.isOpen}
-                onClose={() => setDeleteConfirm({ isOpen: false, fuId: null, fuName: null })}
+                onClose={() => setDeleteConfirm({ isOpen: false, fuId: null, fuName: null, funcionario: null, universidad: null })}
                 onConfirm={handleDelete}
                 title="Confirmar Eliminación"
-                message={<> ¿Está seguro que desea eliminar la relación entre <strong>{deleteConfirm.fuName}</strong> ? Esta acción no se puede deshacer. </>}
+                message={
+                    <>
+                        ¿Está seguro que desea eliminar la relación entre el funcionario  <strong>{deleteConfirm.funcionario}</strong> y la universidad <strong>{deleteConfirm.universidad}</strong>? Esta acción no se puede deshacer.
+                    </>
+                }
+
             />
 
             {toast.show && (

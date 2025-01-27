@@ -120,8 +120,7 @@ export default function PUTJuradoPage() {
                         <table className="w-full text-sm text-left table-auto">
                             <thead>
                                 <tr className="bg-gray-200">
-                                    <th className="border border-gray-300 px-3 py-3 text-[1rem]">ID</th>
-                                    <th className="border border-gray-300 px-3 py-3 text-[1rem]">PUT</th>
+                                    {/* <th className="border border-gray-300 px-3 py-3 text-[1rem]">PUT</th> */}
                                     <th className="border border-gray-300 px-3 py-3 text-[1rem]">Jurado</th>
                                     <th className="border border-gray-300 px-3 py-3 text-[1rem]">Representante</th>
                                     <th className="border border-gray-300 px-3 py-3 text-[1rem]">Observaciones</th>
@@ -132,8 +131,7 @@ export default function PUTJuradoPage() {
                                 {putJurados && putJurados.length > 0 ? (
                                     putJurados.map((putJurado) => (
                                         <tr key={putJurado.Id_PUT_Jurado} className="hover:bg-gray-50">
-                                            <td className="border border-gray-300 px-3 py-1">{putJurado.Id_PUT_Jurado}</td>
-                                            <td className="border border-gray-300 px-3 py-1">{putJurado.Id_PUT_Jur}</td>
+                                            {/* <td className="border border-gray-300 px-3 py-1">{putJurado.Id_PUT_Jur}</td> */}
                                             <td className="border border-gray-300 px-3 py-1">{putJurado.JuradoNombre}</td>
                                             <td className="border border-gray-300 px-3 py-1">{putJurado.Representante_Jur}</td>
                                             <td className="border border-gray-300 px-3 py-1">{putJurado.Observacion_Jur}</td>

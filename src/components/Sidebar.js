@@ -71,7 +71,7 @@ export default function Sidebar() {
             name: "Jurados",
             icon: (
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7a4 4 0 118 0M8 7h8m-4 0v10m-6 2h12m-6 0v-2" />
                 </svg>
             )
         },
@@ -80,37 +80,38 @@ export default function Sidebar() {
             name: "Colegios",
             icon: (
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 14v6m-5-5v6m5-6H7m5 0l4 4m0 0-4 4m4-4H7" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 2l9 4.5-9 4.5-9-4.5L12 2zm0 13l9-4.5m-18 0l9 4.5M12 2v13m0 5.5l9-4.5m-18 0l9 4.5" />
                 </svg>
             )
         },
         {
-            path: "juradoColegio",
+            path: "/juradoColegio",
             name: "Jurado Colegio",
             icon: (
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 14v6m-5-5v6m5-6H7m5 0l4 4m0 0-4 4m4-4H7" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 16l-2-2m0 0l-2 2m2-2v6m6-6h6m-3 3l3-3m-3 3v6" />
                 </svg>
             )
         },
         {
-            path: "funcionarioUniversidad",
+            path: "/funcionarioUniversidad",
             name: "Funcionario Universidad",
             icon: (
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 01-8 0m8 0v3m0 0a4 4 0 01-8 0m4 4h4m-4 0h-4m4 0v4m0-4l-2 2m0-4l2 2" />
                 </svg>
             )
         },
         {
-            path: "putJurado",
+            path: "/putJurado",
             name: "P.U.T. Jurado",
             icon: (
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 14v6m-5-5v6m5-6H7m5 0l4 4m0 0-4 4m4-4H7" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c1.104 0 2-.896 2-2s-.896-2-2-2-2 .896-2 2 .896 2 2 2zm0 4v8m0-8c-3.314 0-6 2.686-6 6h12c0-3.314-2.686-6-6-6z" />
                 </svg>
             )
-        },
+        }
+
         // {
         // path: "/funcionarioColegioCargo",
         // name: "Funcionario Colegio Cargo",

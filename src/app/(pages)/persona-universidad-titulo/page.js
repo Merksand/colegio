@@ -153,7 +153,7 @@ export default function RelacionesPage() {
                                             <td className="border border-gray-300 px-4 py-2">{relacion.Nombre_Uni}</td>
                                             <td className="border border-gray-300 px-4 py-2">{relacion.Descripcion_Tit}</td>
                                             <td className="border border-gray-300 px-4 py-2">{relacion.Tema_PUT || "N/A"}</td>
-                                            <td className="border border-gray-300 px-4 py-2">{new Date (relacion.Fecha_PUT).toLocaleDateString() || "N/A"}</td>
+                                            <td className="border border-gray-300 px-4 py-2">{new Date(relacion.Fecha_PUT).toLocaleDateString() || "N/A"}</td>
                                             <td className="border border-gray-300 px-4 py-2">
                                                 <div className="flex gap-2">
                                                     <button
@@ -205,10 +205,10 @@ export default function RelacionesPage() {
                 title="Confirmar Eliminación"
                 message={
                     <>
-                        ¿Desea eliminar la relación de{" "}
-                        <strong>{deleteConfirm.personaNombre}</strong>?
+                        ¿Está seguro que desea eliminar la relación de la persona <strong>{deleteConfirm.personaNombre}</strong> con su universidad y título asociado? Esta acción no se puede deshacer.
                     </>
                 }
+                
             />
 
             {/* Notificaciones */}

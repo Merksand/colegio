@@ -13,13 +13,12 @@ export default function PUTJuradoForm({ putJurado, onSubmit, onCancel }) {
     Observacion_Jur: putJurado?.Observacion_Jur || "",
   });
 
-  // Cargar datos de PUT y jurados
   useEffect(() => {
     const fetchOptions = async () => {
       try {
         const [putRes, juradoRes] = await Promise.all([
-          axios.get("/api/universidadTitulo"), // Endpoint para listar todos los PUTs
-          axios.get("/api/jurados"), // Endpoint para listar todos los jurados
+          axios.get("/api/universidadTitulo"), 
+          axios.get("/api/jurados"), 
         ]);
         setPuts(putRes.data);
         setJurados(juradoRes.data);
@@ -30,15 +29,15 @@ export default function PUTJuradoForm({ putJurado, onSubmit, onCancel }) {
     fetchOptions();
   }, []);
 
-  // Manejar cambios en los inputs
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
   const handleFormSubmit = (e) => {
-    e.preventDefault(); // Evita recargar la página
-    onSubmit(formData); // Envía los datos al componente padre
+    e.preventDefault(); 
+    onSubmit(formData); 
   };
 
   return (
@@ -51,7 +50,6 @@ export default function PUTJuradoForm({ putJurado, onSubmit, onCancel }) {
           {putJurado ? "Editar Relación PUT-Jurado" : "Agregar Relación PUT-Jurado"}
         </h2>
 
-        {/* Selector de PUT */}
         <div className="mb-4">
           <label className="block text-gray-700">PUT:</label>
           <select
@@ -70,7 +68,6 @@ export default function PUTJuradoForm({ putJurado, onSubmit, onCancel }) {
           </select>
         </div>
 
-        {/* Selector de Jurado */}
         <div className="mb-4">
           <label className="block text-gray-700">Jurado:</label>
           <select
@@ -89,7 +86,6 @@ export default function PUTJuradoForm({ putJurado, onSubmit, onCancel }) {
           </select>
         </div>
 
-        {/* Campo de Representante */}
         <div className="mb-4">
           <label className="block text-gray-700">Representante:</label>
           <input
@@ -103,7 +99,6 @@ export default function PUTJuradoForm({ putJurado, onSubmit, onCancel }) {
           />
         </div>
 
-        {/* Observaciones */}
         <div className="mb-4">
           <label className="block text-gray-700">Observaciones:</label>
           <textarea
@@ -116,7 +111,6 @@ export default function PUTJuradoForm({ putJurado, onSubmit, onCancel }) {
           ></textarea>
         </div>
 
-        {/* Botones */}
         <div className="flex justify-end gap-4">
           <button
             type="button"

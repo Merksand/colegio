@@ -8,6 +8,7 @@ export async function GET() {
                    fu.Fecha_Ini_FU, fu.Fecha_Fin_FU, fu.Observacion_FU, fu.Estado_FU,
                    f.Nombre_Fun AS FuncionarioNombre, 
                    f.Paterno_Fun AS FuncionarioPaterno, 
+                   f.Materno_Fun AS FuncionarioMaterno, 
                    u.Nombre_Uni AS UniversidadNombre
             FROM TbFuncionarioUniversidad fu
             INNER JOIN TbFuncionario f ON fu.Id_Funcionario_FU = f.Id_Funcionario

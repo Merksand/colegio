@@ -13,7 +13,7 @@ export default function PersonaForm({ persona, onSubmit, onCancel }) {
                             CI
                         </label>
                         <input
-                            type="text"
+                            type="number"
                             name="CI_Per"
                             defaultValue={persona?.CI_Per}
                             className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2"

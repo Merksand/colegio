@@ -12,6 +12,7 @@ export default function Personas() {
     const [error, setError] = useState(null);
     const [editingPersona, setEditingPersona] = useState(null);
     const [isAdding, setIsAdding] = useState(false);
+    const [filters, setFilters] = useState({ ci: "", paterno: "" });  
     const [deleteConfirm, setDeleteConfirm] = useState({
         isOpen: false,
         personaId: null,
@@ -22,6 +23,7 @@ export default function Personas() {
         message: '',
         type: 'success'
     });
+
     const fetchPersonas = async () => {
         try {
             const response = await axios.get("/api/personas");
@@ -30,19 +32,24 @@ export default function Personas() {
             setError("Error al obtener los datos: " + err.message);
         }
     };
+
     useEffect(() => {
         fetchPersonas();
     }, []);
+
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         return date.toLocaleDateString('es-ES');
     };
+
     const handleEdit = (persona) => {
         setEditingPersona(persona);
     };
+
     const handleAdd = () => {
         setIsAdding(true);
     };
+
     const handleDeleteClick = (persona) => {
         setDeleteConfirm({
             isOpen: true,
@@ -50,6 +57,7 @@ export default function Personas() {
             personaNombre: `${persona.Nombre_Per} ${persona.Paterno_Per}`
         });
     };
+
     const handleDelete = async () => {
         try {
             await axios.delete(`/api/personas/${deleteConfirm.personaId}`);
@@ -93,24 +101,52 @@ export default function Personas() {
         setIsAdding(false);
     };
 
+    const handleFilterChange = (e) => {
+        const { name, value } = e.target;
+        setFilters((prev) => ({ ...prev, [name]: value }));
+    };
+
+    const filteredPersonas = personas.filter((persona) => {
+        const matchesCI = filters.ci === "" || persona.CI_Per.includes(filters.ci);
+        const matchesPaterno = filters.paterno === "" || persona.Paterno_Per.toLowerCase().includes(filters.paterno.toLowerCase());
+        return matchesCI && matchesPaterno;
+    });
+
     return (
         <div className="flex w-full bg-gray-100 rounded-lg">
             <div className="p-4 w-full">
 
                 <div className="overflow-x-auto bg-white rounded-lg shadow">
 
-                    <div className="flex justify-between items-center">
+                    <div className="flex flex-col md:flex-row justify-between items-center">
                         <h1 className="text-2xl font-bold mb-4 p-4">Lista de Personas</h1>
                         {error && <p className="text-red-500 px-4">{error}</p>}
-                        <div className="mt-4">
+                        <div className="flex flex-col md:flex-row gap-2 p-4">
+                            <input
+                                type="number"
+                                name="ci"
+                                placeholder="Buscar por CI"
+                                value={filters.ci}
+                                onChange={handleFilterChange}
+                                className="border rounded px-3 py-2"
+                            />
+                            <input
+                                type="text"
+                                name="paterno"
+                                placeholder="Buscar por Ap. Paterno"
+                                value={filters.paterno}
+                                onChange={handleFilterChange}
+                                className="border rounded px-3 py-2"
+                            />
                             <button
                                 onClick={handleAdd}
-                                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2"
+                                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                             >
                                 Agregar Nueva Persona
                             </button>
                         </div>
                     </div>
+
                     <div className="w-full overflow-x-auto">
                         <table className="w-full text-sm text-left table-auto">
                             <thead>
@@ -129,8 +165,8 @@ export default function Personas() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {personas && personas.length > 0 ? (
-                                    personas.map((persona) => (
+                                {filteredPersonas && filteredPersonas.length > 0 ? (
+                                    filteredPersonas.map((persona) => (
                                         <tr key={persona.Id_Persona} className="hover:bg-gray-50">
                                             <td className="border border-gray-300 px-3 py-1">{persona.CI_Per}</td>
                                             <td className="border border-gray-300 px-3 py-1">{persona.Nombre_Per}</td>
@@ -142,7 +178,7 @@ export default function Personas() {
                                             <td className="border border-gray-300 px-3 py-1">{persona.LDN_Per}</td>
                                             <td className="border border-gray-300 px-3 py-1">{persona.Correo_Per}</td>
                                             <td className="border border-gray-300 px-3 py-1">{persona.Telefono_Per}</td>
-                                            
+
                                             <td className="border border-gray-300 px-4 py-2">
                                                 <div className="flex gap-2 justify-center">
                                                     <button
@@ -155,9 +191,6 @@ export default function Personas() {
                                                         className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded text-sm flex items-center gap-1"
                                                         onClick={() => handleDeleteClick(persona)}
                                                     >
-                                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                                        </svg>
                                                         Eliminar
                                                     </button>
                                                 </div>
@@ -178,7 +211,6 @@ export default function Personas() {
             </div>
 
             {(editingPersona || isAdding) && (
-                console.log(editingPersona),
                 <PersonaForm
                     persona={editingPersona}
                     onSubmit={handleSubmit}

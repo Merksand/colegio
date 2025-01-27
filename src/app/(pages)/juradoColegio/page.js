@@ -14,7 +14,9 @@ export default function JuradoColegioPage() {
     const [deleteConfirm, setDeleteConfirm] = useState({
         isOpen: false,
         juradoColegioId: null,
-        juradoColegioName: null
+        juradoColegioName: null,
+        jurado: null,
+        colegio: null
     });
     const [toast, setToast] = useState({
         show: false,
@@ -46,10 +48,15 @@ export default function JuradoColegioPage() {
     };
 
     const handleDeleteClick = (juradoColegio) => {
+        console.log(juradoColegio)
         setDeleteConfirm({
             isOpen: true,
             juradoColegioId: juradoColegio.Id_JuradoColegio,
-            juradoColegioName: `Jurado ID ${juradoColegio.Id_Jurado_JC}, Colegio ID ${juradoColegio.Id_Colegio_JC}`
+            juradoColegioName: `Jurado ID ${juradoColegio.Id_Jurado_JC}, Colegio ID ${juradoColegio.Id_Colegio_JC}`,
+
+
+            jurado: `${juradoColegio.NombreJurado} ${juradoColegio.JuradoPaterno} ${juradoColegio.JuradoMaterno}` ,
+            colegio: juradoColegio.NombreColegio
         });
     };
 
@@ -69,23 +76,20 @@ export default function JuradoColegioPage() {
         setTimeout(() => setToast({ show: false, message: '', type: 'success' }), 3000);
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const formData = new FormData(e.target);
-        const data = Object.fromEntries(formData.entries());
-        // console.log(formData)
-        // console.log(data)
+    const handleSubmit = async (formData) => {
 
         try {
             if (editingJuradoColegio) {
-                await axios.put(`/api/juradoColegios/${editingJuradoColegio.Id_JuradoColegio}`, data);
+                await axios.put(`/api/juradoColegios/${editingJuradoColegio.Id_JuradoColegio}`, formData);
                 setEditingJuradoColegio(null);
                 showToast('Relación Jurado-Colegio actualizada exitosamente');
             } else {
-                await axios.post('/api/juradoColegios', data);
+                await axios.post('/api/juradoColegios', formData);
                 setIsAdding(false);
                 showToast('Relación Jurado-Colegio agregada exitosamente');
             }
+            
+            setIsAdding(false);
             fetchJuradoColegios();
         } catch (err) {
             showToast("Error en la operación", 'error');
@@ -129,7 +133,7 @@ export default function JuradoColegioPage() {
                                 {juradoColegios && juradoColegios.length > 0 ? (
                                     juradoColegios.map((juradoColegio) => (
                                         <tr key={juradoColegio.Id_JuradoColegio} className="hover:bg-gray-50">
-                                            <td className="border border-gray-300 px-3 py-1">{juradoColegio.NombreJurado + " " + juradoColegio.JuradoPaterno}</td>
+                                            <td className="border border-gray-300 px-3 py-1">{juradoColegio.NombreJurado + " " + juradoColegio.JuradoPaterno + " " + juradoColegio.JuradoMaterno}</td>
                                             <td className="border border-gray-300 px-3 py-1">{juradoColegio.NombreColegio}</td>
                                             <td className="border border-gray-300 px-3 py-1">{new Date(juradoColegio.Fecha_Ini_JC).toLocaleDateString()}</td>
                                             <td className="border border-gray-300 px-3 py-1">{new Date(juradoColegio.Fecha_Fin_JC).toLocaleDateString()}</td>
@@ -175,10 +179,11 @@ export default function JuradoColegioPage() {
 
             <ConfirmDialog
                 isOpen={deleteConfirm.isOpen}
-                onClose={() => setDeleteConfirm({ isOpen: false, juradoColegioId: null, juradoColegioName: null })}
+                onClose={() => setDeleteConfirm({ isOpen: false, juradoColegioId: null, juradoColegioName: null, jurado: null, colegio: null })}
                 onConfirm={handleDelete}
                 title="Confirmar Eliminación"
-                message={`¿Está seguro que desea eliminar la relación entre ${deleteConfirm.juradoColegioName}? Esta acción no se puede deshacer.`}
+                // message={<>¿Está seguro que desea eliminar la relación entre <strong>{deleteConfirm.juradoColegioId}</strong> y <strong>{deleteConfirm.juradoColegioName}</strong>? Esta acción no se puede deshacer.</>}
+                message={<>¿Está seguro que desea eliminar la asignación del jurado <strong>{deleteConfirm.jurado}</strong> al colegio <strong>{deleteConfirm.colegio}</strong>? Esta acción no se puede deshacer.</>}
             />
 
             {toast.show && (
