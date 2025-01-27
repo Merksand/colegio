@@ -1,14 +1,37 @@
 use BD_COLEGIO1;
 
-INSERT INTO TbPersona (CI_Per, Nombre_Per, Paterno_Per, Materno_Per, Sexo_Per, Direccion_Per, FDN_Per, Correo_Per, Telefono_Per, LDN_Per, Estado_Per) 
+INSERT INTO TbPersona (CI_Per, Nombre_Per, Paterno_Per, Materno_Per, Sexo_Per, Direccion_Per, FDN_Per, Correo_Per, Telefono_Per, LDN_Per, Estado_Per)
 VALUES 
-('1234567', 'Juan', 'Pérez', 'Gómez', 'M', 'Av. Siempre Viva #123', '1990-05-15', 'juan.perez@gmail.com', '777123456', 'La Paz', 'AC'),
-('7654321', 'María', 'López', 'Hernández', 'F', 'Calle de las Flores #456', '1985-08-20', 'maria.lopez@gmail.com', '777654321', 'Cochabamba', 'AC'),
-('9876543', 'Carlos', 'Ramírez', 'Villalobos', 'M', 'Calle Los Pinos #789', '1992-12-01', 'carlos.ramirez@gmail.com', '777987654', 'Santa Cruz', 'AC'),
-('2468135', 'Ana', 'Martínez', 'Torres', 'F', 'Av. Las Palmas #321', '1995-03-10', 'ana.martinez@gmail.com', '777246813', 'Tarija', 'AC'),
-('1357924', 'Luis', 'Hernández', 'Rojas', 'M', 'Av. Prado #654', '1988-07-25', 'luis.hernandez@gmail.com', '777135792', 'Potosí', 'AC'),
-('1928374', 'Sofía', 'Gutiérrez', 'Mendoza', 'F', 'Calle Central #987', '1993-09-18', 'sofia.gutierrez@gmail.com', '777192837', 'Oruro', 'AC');
-
+('1234567', 'Juan', 'Pérez', 'García', 'M', 'Av. Principal 123', '1985-02-10', 'juan.perez@gmail.com', '76543210', 'La Paz', 'AC'),
+('2345678', 'María', 'Rodríguez', 'López', 'F', 'Calle Secundaria 45', '1990-06-15', 'maria.rodriguez@hotmail.com', '76543211', 'Cochabamba', 'AC'),
+('3456789', 'Carlos', 'Sánchez', 'Martínez', 'M', 'Av. Tercera 67', '1988-08-20', 'carlos.sanchez@gmail.com', '76543212', 'Santa Cruz', 'AC'),
+('4567890', 'Ana', 'Mendoza', 'Fernández', 'F', 'Calle Cuarta 89', '1992-04-25', 'ana.mendoza@yahoo.com', '76543213', 'Tarija', 'AC'),
+('5678901', 'Luis', 'Gómez', 'Ramírez', 'M', 'Av. Quinta 101', '1987-12-05', 'luis.gomez@gmail.com', '76543214', 'Potosí', 'AC'),
+('6789012', 'Sofía', 'Ramos', 'Vargas', 'F', 'Calle Sexta 123', '1991-07-30', 'sofia.ramos@hotmail.com', '76543215', 'Chuquisaca', 'AC'),
+('7890123', 'José', 'Torres', 'Paredes', 'M', 'Av. Séptima 145', '1983-03-10', 'jose.torres@gmail.com', '76543216', 'Beni', 'AC'),
+('8901234', 'Carmen', 'Gutiérrez', 'Molina', 'F', 'Calle Octava 167', '1995-09-18', 'carmen.gutierrez@hotmail.com', '76543217', 'Oruro', 'AC'),
+('9012345', 'Pedro', 'Vargas', 'Salazar', 'M', 'Av. Novena 189', '1986-11-22', 'pedro.vargas@gmail.com', '76543218', 'Pando', 'AC'),
+('0123456', 'Laura', 'Cruz', 'Álvarez', 'F', 'Calle Décima 210', '1993-05-14', 'laura.cruz@yahoo.com', '76543219', 'La Paz', 'AC'),
+('1234568', 'Diego', 'Flores', 'Herrera', 'M', 'Av. Onceava 231', '1989-02-19', 'diego.flores@gmail.com', '76543220', 'Cochabamba', 'AC'),
+('2345679', 'Valeria', 'Ortega', 'Castro', 'F', 'Calle Doceava 252', '1994-10-12', 'valeria.ortega@hotmail.com', '76543221', 'Santa Cruz', 'AC'),
+('3456780', 'Miguel', 'Chávez', 'Suárez', 'M', 'Av. Treceava 273', '1990-03-17', 'miguel.chavez@gmail.com', '76543222', 'Tarija', 'AC'),
+('4567891', 'Andrea', 'Silva', 'Quispe', 'F', 'Calle Catorce 294', '1988-06-22', 'andrea.silva@yahoo.com', '76543223', 'Potosí', 'AC'),
+('5678902', 'Fernando', 'López', 'Villarroel', 'M', 'Av. Quince 315', '1992-12-25', 'fernando.lopez@gmail.com', '76543224', 'Chuquisaca', 'AC'),
+('6789013', 'Diana', 'Morales', 'Arias', 'F', 'Calle Dieciséis 336', '1985-07-29', 'diana.morales@hotmail.com', '76543225', 'Beni', 'AC'),
+('7890124', 'Hugo', 'Salinas', 'Romero', 'M', 'Av. Diecisiete 357', '1987-04-08', 'hugo.salinas@gmail.com', '76543226', 'Oruro', 'AC'),
+('8901235', 'Patricia', 'Cárdenas', 'Fuentes', 'F', 'Calle Dieciocho 378', '1991-08-18', 'patricia.cardenas@hotmail.com', '76543227', 'Pando', 'AC'),
+('9012346', 'Ricardo', 'Escobar', 'Peña', 'M', 'Av. Diecinueve 399', '1990-09-09', 'ricardo.escobar@gmail.com', '76543228', 'La Paz', 'AC'),
+('0123457', 'Gabriela', 'Soria', 'Luna', 'F', 'Calle Veinte 420', '1986-01-21', 'gabriela.soria@yahoo.com', '76543229', 'Cochabamba', 'AC'),
+('1234569', 'Jorge', 'Jiménez', 'Arce', 'M', 'Av. Veintiuno 441', '1993-06-11', 'jorge.jimenez@gmail.com', '76543230', 'Santa Cruz', 'AC'),
+('2345680', 'Isabel', 'Campos', 'Zeballos', 'F', 'Calle Veintidós 462', '1992-02-28', 'isabel.campos@hotmail.com', '76543231', 'Tarija', 'AC'),
+('3456791', 'Mauricio', 'Quinteros', 'Pacheco', 'M', 'Av. Veintitrés 483', '1994-11-15', 'mauricio.quinteros@gmail.com', '76543232', 'Potosí', 'AC'),
+('4567802', 'Paola', 'Guzmán', 'Rosales', 'F', 'Calle Veinticuatro 504', '1995-04-04', 'paola.guzman@yahoo.com', '76543233', 'Chuquisaca', 'AC'),
+('5678913', 'Manuel', 'Aranda', 'Villegas', 'M', 'Av. Veinticinco 525', '1991-09-20', 'manuel.aranda@gmail.com', '76543234', 'Beni', 'AC'),
+('6789024', 'Alejandra', 'Villalba', 'Medina', 'F', 'Calle Veintiséis 546', '1987-03-18', 'alejandra.villalba@hotmail.com', '76543235', 'Oruro', 'AC'),
+('7890135', 'Cristian', 'Barrera', 'Córdoba', 'M', 'Av. Veintisiete 567', '1990-07-05', 'cristian.barrera@gmail.com', '76543236', 'Pando', 'AC'),
+('8901246', 'Elena', 'Montoya', 'Ríos', 'F', 'Calle Veintiocho 588', '1989-10-14', 'elena.montoya@hotmail.com', '76543237', 'La Paz', 'AC'),
+('9012357', 'Sebastián', 'Navarro', 'Ledesma', 'M', 'Av. Veintinueve 609', '1993-01-08', 'sebastian.navarro@gmail.com', '76543238', 'Cochabamba', 'AC'),
+('0123468', 'Camila', 'Durán', 'Serrano', 'F', 'Calle Treinta 630', '1995-12-31', 'camila.duran@yahoo.com', '76543239', 'Santa Cruz', 'AC');
 
 
 INSERT INTO TbUniversidad (Nombre_Uni, Tipo_Uni, Sede_Uni, Estado_Uni) 
