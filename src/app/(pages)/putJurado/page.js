@@ -14,7 +14,8 @@ export default function PUTJuradoPage() {
     const [deleteConfirm, setDeleteConfirm] = useState({
         isOpen: false,
         putJuradoId: null,
-        putJuradoName: null
+        putJuradoName: null,
+        jurado: null
     });
     const [toast, setToast] = useState({
         show: false,
@@ -49,10 +50,12 @@ export default function PUTJuradoPage() {
 
     // Manejar clic en eliminar
     const handleDeleteClick = (putJurado) => {
+        console.log(putJurado)
         setDeleteConfirm({
             isOpen: true,
             putJuradoId: putJurado.Id_PUT_Jurado,
-            putJuradoName: `Jurados para PUT ID ${putJurado.Id_PUT_Jur}`
+            putJuradoName: `Jurados para PUT ID ${putJurado.Id_PUT_Jur}`,
+            jurado: `${putJurado.JuradoNombre} ${putJurado.JuradoPaterno} ${putJurado.JuradoMaterno}`
         });
     };
 
@@ -132,7 +135,7 @@ export default function PUTJuradoPage() {
                                     putJurados.map((putJurado) => (
                                         <tr key={putJurado.Id_PUT_Jurado} className="hover:bg-gray-50">
                                             {/* <td className="border border-gray-300 px-3 py-1">{putJurado.Id_PUT_Jur}</td> */}
-                                            <td className="border border-gray-300 px-3 py-1">{putJurado.JuradoNombre}</td>
+                                            <td className="border border-gray-300 px-3 py-1">{putJurado.JuradoNombre + " " + putJurado.JuradoPaterno + " " + putJurado.JuradoMaterno}</td>
                                             <td className="border border-gray-300 px-3 py-1">{putJurado.Representante_Jur}</td>
                                             <td className="border border-gray-300 px-3 py-1">{putJurado.Observacion_Jur}</td>
                                             <td className="border border-gray-300 px-4 py-2">
@@ -176,10 +179,11 @@ export default function PUTJuradoPage() {
 
             <ConfirmDialog
                 isOpen={deleteConfirm.isOpen}
-                onClose={() => setDeleteConfirm({ isOpen: false, putJuradoId: null, putJuradoName: null })}
+                onClose={() => setDeleteConfirm({ isOpen: false, putJuradoId: null, putJuradoName: null, jurado: null  })}
                 onConfirm={handleDelete}
                 title="Confirmar Eliminación"
-                message={<> ¿Está seguro que desea eliminar la relación <strong>{deleteConfirm.putJuradoName}</strong>? Esta acción no se puede deshacer. </>}
+                // message={<> ¿Está seguro que desea eliminar la relación <strong>{deleteConfirm.putJuradoName}</strong>? Esta acción no se puede deshacer. </>}
+                message={<> ¿Está seguro que desea eliminar el registro del jurado <strong>{deleteConfirm.jurado}</strong>? Esta acción no se puede deshacer. </>}
             />
 
             {toast.show && (

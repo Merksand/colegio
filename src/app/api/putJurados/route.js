@@ -7,7 +7,7 @@ export async function GET() {
             SELECT pj.Id_PUT_Jurado, pj.Id_PUT_Jur, pj.Id_Jurado_Jur, 
                    pj.Representante_Jur, pj.Observacion_Jur, pj.Estado_Jur,
                    p.Tema_PUT AS PUTTema,
-                   j.Nombre_Jur AS JuradoNombre, j.Paterno_Jur AS JuradoPaterno
+                   j.Nombre_Jur AS JuradoNombre, j.Paterno_Jur AS JuradoPaterno, j.Materno_Jur AS JuradoMaterno
             FROM TbPUT_Jurado pj
             INNER JOIN TbPersonaUniversidadTitulo p ON pj.Id_PUT_Jur = p.Id_PUT
             INNER JOIN TbJurado j ON pj.Id_Jurado_Jur = j.Id_Jurado

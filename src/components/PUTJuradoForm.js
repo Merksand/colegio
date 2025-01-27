@@ -51,7 +51,8 @@ export default function PUTJuradoForm({ putJurado, onSubmit, onCancel }) {
         </h2>
 
         <div className="mb-4">
-          <label className="block text-gray-700">PUT:</label>
+          {/* <label className="block text-gray-700">PUT:</label> */}
+          <label className="block text-gray-700">Tema:</label>
           <select
             name="Id_PUT_Jur"
             value={formData.Id_PUT_Jur}
@@ -59,7 +60,7 @@ export default function PUTJuradoForm({ putJurado, onSubmit, onCancel }) {
             className="border px-4 py-2 rounded w-full"
             required
           >
-            <option value="">Seleccione un PUT</option>
+            <option value="">Seleccione un Tema</option>
             {puts.map((put) => (
               <option key={put.Id_PUT} value={put.Id_PUT}>
                 {put.Tema_PUT}
